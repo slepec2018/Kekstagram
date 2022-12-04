@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href="./vendor/nouislider.css" rel="stylesheet">
+  <title>Kekstagram</title>
+</head>
+
+<body>
+  <main>
+
+    <!-- Filtering images from other users -->
+    <section class="img-filters  img-filters--inactive  container">
+      <h2 class="img-filters__title  visually-hidden">Photo filter</h2>
+      <form class="img-filters__form" action="index.html" method="get" autocomplete="off">
+        <button type=button class="img-filters__button  img-filters__button--active" id="filter-default">By
+			default</button>
+        <button type=button class="img-filters__button " id="filter-random">Random</button>
+        <button type=button class="img-filters__button" id="filter-discussed">Discussed</button>
+      </form>
+    </section>
+
+    <!-- Container for images from other users -->
+    <section class="pictures  container">
+      <h2 class="pictures__title  visually-hidden">Photos of other users</h2>
+
+      <!-- Field for uploading a new image to the site -->
+      <section class="img-upload">
+        <div class="img-upload__wrapper">
+          <h2 class="img-upload__title  visually-hidden">Uploading a photo</h2>
+          <form class="img-upload__form" action="https://22.javascript.pages.academy/kekstagram"
+            id="upload-select-image" method="post" enctype="multipart/form-data" autocomplete="off">
+
+            <!-- Initial state of the field for uploading an image -->
+            <fieldset class="img-upload__start">
+              <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" required>
+              <label for="upload-file" class="img-upload__label  img-upload__control">Download</label>
+            </fieldset>
+
+            <!-- Image editing form -->
+            <div class="img-upload__overlay  hidden">
+              <div class="img-upload__wrapper">
+                <div class="img-upload__preview-container">
+
+                  <!-- Image resizing -->
+                  <fieldset class="img-upload__scale  scale">
+                    <button type="button" class="scale__control  scale__control--smaller">Decrease</button>
+                    <input type="text" class="scale__control  scale__control--value" value="100%" title="Image Scale"
+                      name="scale" readonly>
+                    <button type="button" class="scale__control  scale__control--bigger">Increase</button>
+                  </fieldset>
+
+                  <!-- Image preview -->
+                  <div class="img-upload__preview">
+                    <img src="img/upload-default-image.jpg" alt="Photo Preview">
+                  </div>
+
+                  <!-- Change the depth of an effect applied to an image -->
+                  <fieldset class="img-upload__effect-level  effect-level">
+                    <input class="effect-level__value" type="number" name="effect-level" value="100">
+                    <div class="effect-level__slider" id="slider-step"></div>
+                  </fieldset>
+
+                  <!-- Button to close the image editing form -->
+                  <button type="reset" class="img-upload__cancel  cancel" id="upload-cancel">Close</button>
+                </div>
+
+                <!-- Applying an effect to an image -->
+                <fieldset class="img-upload__effects  effects">
+                  <ul class="effects__list">
+                    <li class="effects__item">
+                      <input type="radio" class="effects__radio  visually-hidden" name="effect" id="effect-none"
+                        value="none" checked>
+                      <label for="effect-none" class="effects__label">
+                        <span class="effects__preview  effects__preview--none">Preview photo without effect</span>
+                        Original
+                      </label>
+                    </li>
+                    <li class="effects__item">
+                      <input type="radio" class="effects__radio  visually-hidden" name="effect" id="effect-chrome"
+                        value="chrome">
+                      <label for="effect-chrome" class="effects__label">
+                        <span class="effects__preview  effects__preview--chrome">Chrome effect preview</span>
+                        Chromium
+                      </label>
+                    </li>
+                    <li class="effects__item">
+                      <input type="radio" class="effects__radio  visually-hidden" name="effect" id="effect-sepia"
+                        value="sepia">
+                      <label for="effect-sepia" class="effects__label">
+                        <span class="effects__preview  effects__preview--sepia">Sepia Effect Preview</span>
+                        Sepia
+                      </label>
+                    </li>
+                    <li class="effects__item">
+                      <input type="radio" class="effects__radio  visually-hidden" name="effect" id="effect-marvin"
+                        value="marvin">
+                      <label for="effect-marvin" class="effects__label">
+                        <span class="effects__preview  effects__preview--marvin">Marvin effect preview</span>
+                        Marvin
+                      </label>
+                    </li>
+                    <li class="effects__item">
+                      <input type="radio" class="effects__radio  visually-hidden" name="effect" id="effect-phobos"
+                        value="phobos">
+                      <label for="effect-phobos" class="effects__label">
+                        <span class="effects__preview  effects__preview--phobos">Phobos effect preview</span>
+                        Phobos
+                      </label>
+                    </li>
+                    <li class="effects__item">
+                      <input type="radio" class="effects__radio  visually-hidden" name="effect" id="effect-heat"
+                        value="heat">
+                      <label for="effect-heat" class="effects__label">
+                        <span class="effects__preview  effects__preview--heat">Heat Effect Preview</span>
+                        Heat
+                      </label>
+                    </li>
+                  </ul>
+                </fieldset>
+
+                <!-- Adding hash tags and a comment to an image -->
+                <fieldset class="img-upload__text text form-group">
+                  <input class="text__hashtags form-control" name="hashtags" placeholder="#Hashtag" type="text">
+                  <textarea class="text__description form-control" name="description" placeholder="Your comment..." maxlength="140"></textarea>
+                </fieldset>
+
+                <!-- Button for sending data to the server -->
+                <button type="submit" class="img-upload__submit" id="upload-submit">Publish</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- There will be pictures of other users here -->
+
+    </section>
+
+    <!-- Full screen image display -->
+    <section class="big-picture  overlay  hidden">
+      <h2 class="big-picture__title  visually-hidden">Photo View</h2>
+      <div class="big-picture__preview">
+
+        <!-- View image -->
+        <div class="big-picture__img">
+          <img src="img/logo-background-3.jpg" alt="Girl in swimsuit" width="600" height="600">
+        </div>
+
+        <!-- Image information. Signature, comments, number of likes -->
+        <div class="big-picture__social  social">
+          <div class="social__header">
+            <img class="social__picture" src="img/avatar-1.svg" alt="Photographer's avatar" width="35" height="35">
+            <p class="social__caption">Testing a new camera! =)</p>
+            <p class="social__likes">Like <span class="likes-count">356</span></p>
+          </div>
+
+          <!-- Image Comments -->
+          <div class="social__comment-count"><span class="social__comment-count-item">5</span> from <span class="comments-count">125</span> comments</div>
+          <ul class="social__comments">
+
+          </ul>
+
+          <!-- Button to download a new batch of comments -->
+          <button type="button" class="social__comments-loader  comments-loader">Load more</button>
+
+          <!-- Comment form -->
+          <div class="social__footer">
+            <img class="social__picture" src="img/avatar-6.svg" alt="photo commentator avatar" width="35"
+              height="35">
+            <input type="text" class="social__footer-text" placeholder="Your comment...">
+            <button type="button" class="social__footer-btn" name="button">Send</button>
+          </div>
+        </div>
+
+        <!-- Button to exit full screen image view -->
+        <button type="reset" class="big-picture__cancel  cancel" id="picture-cancel">Close</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer  container">
+    <div class="page-footer__wrapper">
+      <div class="page-footer__copyright  copyright">
+      </div>
+      <ul class="page-footer__contacts  contacts">
+        <li><a href="#" class="contacts__link  contacts__link--twitter">Twitter</a>
+        </li>
+        <li><a href="#"
+            class="contacts__link  contacts__link--instagram">Instagtam</a></li>
+        <li><a href="#" class="contacts__link  contacts__link--facebook">Facebook</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Random User Post Template -->
+  <template id="comment">
+    <li class="social__comment">
+      <img class="social__picture" src="" alt="" width="35" height="35">
+      <p class="social__text"></p>
+    </li>
+  </template>
+
+  <!-- Random user image template -->
+  <template id="picture">
+    <a href="#" class="picture">
+      <img class="picture__img" src="" width="182" height="182" alt="Random photo">
+      <p class="picture__info">
+        <span class="picture__comments"></span>
+        <span class="picture__likes"></span>
+      </p>
+    </a>
+  </template>
+
+  <!-- Image upload error message -->
+  <template id="error">
+    <section class="error">
+      <div class="error__inner">
+        <h2 class="error__title">File upload error</h2>
+        <button type="button" class="error__button">Upload another file</button>
+      </div>
+    </section>
+  </template>
+
+  <!-- Successful image upload message -->
+  <template id="success">
+    <section class="success">
+      <div class="success__inner">
+        <h2 class="success__title">Image uploaded successfully</h2>
+        <button type="button" class="success__button">Cool!</button>
+      </div>
+    </section>
+  </template>
+
+  <!-- Image loading screen -->
+  <template id="messages">
+    <div class="img-upload__message  img-upload__message--loading">Loading...</div>
+  </template>
+
+  <!-- <script src="js/main.js" type="module"></script> -->
+  <script src="./js/main.js" type="module"></script>
+  <script src="./vendor/pristine.js" type="text/javascript"></script>
+  <script src="./vendor/nouislider.js"></script>
+</body>
+
+</html>
