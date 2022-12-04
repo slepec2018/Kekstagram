@@ -6,7 +6,7 @@ import { closeModal } from './util.js';
 // The function of collecting post cards data from the server
 const takeData = () => {
 
-	return fetch('https://27.javascript.pages.academy/kekstagram/data')
+	return fetch('https://raw.githubusercontent.com/slepec2018/Kekstagram/master/data.json')
 		.then((response) => {
 			if (response.status !== 200) {
 				alert('Looks like there was a problem. Status Code: ' + response.status);
