@@ -1,0 +1,29 @@
+{
+  "name": "kekstagram",
+  "version": "22.0.0",
+  "private": true,
+  "description": "Личный проект «Кекстаграм» от HTML Academy",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:htmlacademy-javascript/222997-kekstagram-22.git"
+  },
+  "bugs": {
+    "url": "https://github.com/htmlacademy-javascript/222997-kekstagram-22/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "2.26.14",
+    "eslint": "7.18.0",
+    "eslint-config-htmlacademy": "2.0.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "browser-sync start --config \"bs-config.js\"",
+    "test": "eslint build/js/"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "nouislider": "14.6.4"
+  }
+}
